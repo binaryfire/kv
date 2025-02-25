@@ -13,8 +13,20 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ vars.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PAT }}
+    
     - name: Build the Docker image
       run: |
+        TIMESTAMP=$(date +%s)
         docker build . --file Dockerfile \
-          --tag ghcr.io/${{ github.repository }}:$(date +%s) \
-          --tag ghcr.io/${{ github.repository }}:latest
+          --tag ${{ vars.DOCKER_USERNAME }}/kv:${TIMESTAMP} \
+          --tag ${{ vars.DOCKER_USERNAME }}/kv:latest
+    
+    - name: Push Docker image
+      run: |
+        docker push ${{ vars.DOCKER_USERNAME }}/kv:$(date +%s)
+        docker push ${{ vars.DOCKER_USERNAME }}/kv:latest
