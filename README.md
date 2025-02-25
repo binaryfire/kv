@@ -9,7 +9,7 @@ This project provides a simple, performant and resource-efficient key-value stor
 ## Features
 
 *   RESTful HTTP API
-*   Persistent storage via SQLite
+*   Persistent (optional) storage via SQLite
 *   Low resource usage (typical memory usage ~35MB, negligible CPU usage)
 *   Simple GET/PUT/DELETE operations
 
@@ -17,7 +17,7 @@ This project provides a simple, performant and resource-efficient key-value stor
 
 ### Running with Docker
 
-Run the container with default settings:
+Run the container:
 
 ```
 docker run --name kv -p 8080:8080 binaryfire/kv:latest
