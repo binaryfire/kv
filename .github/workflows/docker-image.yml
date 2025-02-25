@@ -22,19 +22,20 @@ jobs:
     - name: Build and push Docker image
       run: |
         TIMESTAMP=$(date +%s)
+        REPOSITORY=${{ vars.DOCKER_USERNAME }}/kv
         
         docker build . --file Dockerfile \
-          --tag ${{ vars.DOCKER_USERNAME }}/kv:${TIMESTAMP} \
-          --tag ${{ vars.DOCKER_USERNAME }}/kv:latest
+          --tag ${REPOSITORY}:${TIMESTAMP} \
+          --tag ${REPOSITORY}:latest
         
-        docker push ${{ vars.DOCKER_USERNAME }}/kv:${TIMESTAMP}
-        docker push ${{ vars.DOCKER_USERNAME }}/kv:latest
+        docker push ${REPOSITORY}:${TIMESTAMP}
+        docker push ${REPOSITORY}:latest
         
     - name: Update Docker Hub Description
-      uses: peter-evans/dockerhub-description@v3
+      uses: peter-evans/dockerhub-description@v4
       with:
         username: ${{ vars.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PAT }}
-        repository: ${{ vars.DOCKER_USERNAME }}/kv
+        repository: ${REPOSITORY}
         readme-filepath: ./README.md
-        short-description: "A lightweight key-value store with HTTP API built using ReactPHP and SQLite"
+        short-description: "Lightweight key-value store with HTTP API. Built using ReactPHP and SQLite"
