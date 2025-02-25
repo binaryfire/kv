@@ -13,23 +13,23 @@ This project provides a simple, performant and resource-efficient key-value stor
 *   Low resource usage (typical memory usage ~35MB, negligible CPU usage)
 *   Simple GET/PUT/DELETE operations
 
-## Getting Started
+## Getting started
 
 ### Running with Docker
 
 Run the container with default settings:
 
 ```
-docker run -p 8080:8080 ghcr.io/binaryfire/kv:latest
+docker run --name kv -p 8080:8080 binaryfire/kv:latest
 ```
 
 For data persistence, map the database directory to a volume:
 
 ```
-docker run -p 8080:8080 -v kv-database:/var/www/database ghcr.io/binaryfire/kv:latest
+docker run --name kv -p 8080:8080 -v kv-database:/var/www/database binaryfire/kv:latest
 ```
 
-## API Routes
+## API routes
 
 | Method | Route | Description |
 | --- | --- | --- |
@@ -38,7 +38,13 @@ docker run -p 8080:8080 -v kv-database:/var/www/database ghcr.io/binaryfire/kv:l
 | PUT | /{key} | Set value for key |
 | DELETE | /{key} | Delete key |
 
-## Usage Examples
+## API format
+
+The API uses plain text instead of JSON for both requests and responses, making it easier to in scripts and with command-line tools.
+
+When retrieving a value, the raw value is returned without any formatting. When listing all keys, each key is returned on a new line. 
+
+## Usage examples
 
 List all keys:
 
@@ -64,7 +70,7 @@ Delete a key:
 curl -X DELETE http://localhost:8080/my_key
 ```
 
-## Key Format Requirements
+## Key format requirements
 
 All keys must be in lowercase \`snake\_case\` format:
 
@@ -72,7 +78,7 @@ All keys must be in lowercase \`snake\_case\` format:
 *   Words separated by underscores
 *   Example: `user_settings`, `api_key_1`
 
-## Building from Source
+## Building locally from source
 
 ```
 ./build.sh
