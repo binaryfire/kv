@@ -1,0 +1,14 @@
+{
+    "require": {
+        "clue/framework-x": "^0.17",
+        "clue/reactphp-sqlite": "^1.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        },
+        "files": [
+            "helpers.php"
+        ]        
+    }    
+}
