@@ -27,7 +27,8 @@ class PlainTextErrorResponseMiddleware
     {
         $statusCode = $response->getStatusCode();
 
-        if ($statusCode >= 400) {
+        // Status 400 is used for validation errors and should be excluded
+        if ($statusCode >= 401) {
             $statusEnum = HttpStatusEnum::tryFrom($statusCode);
             
             $description = $statusEnum ? $statusEnum->getDescription() : 'Error';

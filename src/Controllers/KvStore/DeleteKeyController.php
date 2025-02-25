@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controllers\KvStore;
 
 use App\Concerns\ValidatesKvStore;
+use App\Enums\HttpStatusEnum;
 use App\Exceptions\KvStoreException;
 use App\Services\KvStoreService;
 use Psr\Http\Message\ServerRequestInterface;
@@ -32,12 +33,12 @@ class DeleteKeyController
 
         return $this->kvStore->delete($key)->then(
             function () {
-                return Response::plaintext('OK')->withStatus(200);
+                return Response::plaintext('')->withStatus(HttpStatusEnum::no_content->value);
             },
 
             function (KvStoreException $e) {
                 error_log("Error deleting key: " . $e->getMessage());
-                return Response::plaintext('Internal Server Error')->withStatus(500);
+                return Response::plaintext('')->withStatus(HttpStatusEnum::internal_server_error->value);
             }
         );
     }

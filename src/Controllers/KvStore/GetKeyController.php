@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controllers\KvStore;
 
 use App\Concerns\ValidatesKvStore;
+use App\Enums\HttpStatusEnum;
 use App\Exceptions\KvStoreException;
 use App\Services\KvStoreService;
 use Psr\Http\Message\ServerRequestInterface;
@@ -33,7 +34,7 @@ class GetKeyController
         return $this->kvStore->get($key)->then(
             function ($result) {
                 if (empty($result->rows)) {
-                    return Response::plaintext('')->withStatus(404);
+                    return Response::plaintext('')->withStatus(HttpStatusEnum::not_found->value);
                 }
                 
                 return Response::plaintext($result->rows[0]['value']);
@@ -41,7 +42,7 @@ class GetKeyController
 
             function (KvStoreException $e) {
                 error_log("Error getting key: " . $e->getMessage());
-                return Response::plaintext('Internal Server Error')->withStatus(500);
+                return Response::plaintext('')->withStatus(HttpStatusEnum::internal_server_error->value);
             }
         );
     }

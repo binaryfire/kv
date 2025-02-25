@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Controllers\KvStore;
 
+use App\Enums\HttpStatusEnum;
 use App\Exceptions\KvStoreException;
 use App\Services\KvStoreService;
-use Psr\Http\Message\ServerRequestInterface;
 use React\Http\Message\Response;
 
 class ListKeysController
@@ -35,8 +35,8 @@ class ListKeysController
 
             function (KvStoreException $e) {
                 error_log("Error listing keys: " . $e->getMessage());
-                Response::plaintext('Internal Server Error')->withStatus(500);
-            }
+                Response::plaintext('')->withStatus(HttpStatusEnum::internal_server_error->value);
+                }
         );
     }
 }
