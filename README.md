@@ -72,7 +72,7 @@ curl -X DELETE http://localhost:8080/my_key
 
 ## Key format requirements
 
-All keys must be in lowercase \`snake\_case\` format:
+All keys must be in lowercase `snake_case` format:
 
 *   Must contain only lowercase letters and numbers
 *   Words separated by underscores

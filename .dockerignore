@@ -7,3 +7,5 @@ docker-compose*.yml
 vendor/
 database/*.sqlite
 database/*.sqlite-*
+LICENSE
+README.md
