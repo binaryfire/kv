@@ -1,0 +1,9 @@
+.dockerignore
+.git
+.gitignore
+build.sh
+Dockerfile
+docker-compose*.yml
+vendor/
+database/*.sqlite
+database/*.sqlite-*
