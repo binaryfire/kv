@@ -36,6 +36,6 @@ jobs:
       with:
         username: ${{ vars.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PAT }}
-        repository: ${REPOSITORY}
+        repository: ${{ vars.DOCKER_USERNAME }}/kv
         readme-filepath: ./README.md
         short-description: "Lightweight key-value store with HTTP API. Built using ReactPHP and SQLite"
