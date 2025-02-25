@@ -40,7 +40,7 @@ docker run --name kv -p 8080:8080 -v kv-database:/var/www/database binaryfire/kv
 
 ## API format
 
-The API uses plain text instead of JSON for both requests and responses, making it easier to in scripts and with command-line tools.
+The API uses plain text instead of JSON for both requests and responses, making it easier to use in scripts and with command-line tools.
 
 When retrieving a value, the raw value is returned without any formatting. When listing all keys, each key is returned on a new line. 
 
