@@ -19,14 +19,13 @@ jobs:
         username: ${{ vars.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PAT }}
     
-    - name: Build the Docker image
+    - name: Build and push Docker image
       run: |
         TIMESTAMP=$(date +%s)
+        
         docker build . --file Dockerfile \
           --tag ${{ vars.DOCKER_USERNAME }}/kv:${TIMESTAMP} \
           --tag ${{ vars.DOCKER_USERNAME }}/kv:latest
-    
-    - name: Push Docker image
-      run: |
-        docker push ${{ vars.DOCKER_USERNAME }}/kv:$(date +%s)
+        
+        docker push ${{ vars.DOCKER_USERNAME }}/kv:${TIMESTAMP}
         docker push ${{ vars.DOCKER_USERNAME }}/kv:latest
