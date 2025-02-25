@@ -29,3 +29,12 @@ jobs:
         
         docker push ${{ vars.DOCKER_USERNAME }}/kv:${TIMESTAMP}
         docker push ${{ vars.DOCKER_USERNAME }}/kv:latest
+        
+    - name: Update Docker Hub Description
+      uses: peter-evans/dockerhub-description@v3
+      with:
+        username: ${{ vars.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PAT }}
+        repository: ${{ vars.DOCKER_USERNAME }}/kv
+        readme-filepath: ./README.md
+        short-description: "A lightweight key-value store with HTTP API built using ReactPHP and SQLite"
